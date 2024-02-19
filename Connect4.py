@@ -82,8 +82,9 @@ def utility(board):
     """
     Returns 1 if Red has won the game, -1 if Yellow has won, 0 otherwise.
     """
-    # REVAMP NEEDED HERE
-    for c in [R, Y]:
+    
+    # REVAMP NEEDED HERE - make row itterator usable for columns
+    for color in [R, Y]:
         # Check rows and columns
         for i in range(4):
             if all(cell == c for cell in board[i]) or all(board[j][i] == c for j in range(4)):
@@ -91,6 +92,25 @@ def utility(board):
         # Check diagonals
         if all(board[i][i] == c for i in range(4)) or all(board[i][2 - i] == c for i in range(4)):
             return 1 if c == Y else -1
+        
+        # row itterator
+        for i in range(6):
+            consec = 0
+            # chunks of 4
+            for j in range(3):
+                for k in range(j, j + 4):
+                    if board[i][j] == color:
+                        consec += 1
+                    else:
+                        break
+            if consec == 4:
+                return 1 if color == R else -1
+        
+
+                
+
+
+
     return 0
         
 
