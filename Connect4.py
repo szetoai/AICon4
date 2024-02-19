@@ -63,6 +63,7 @@ def actions(board):
                 if board[i][j] == EMPTY:
                     moves.append([i, j])
             else:
+                # if this space is empty and space below isn't
                 if board[i][j] == EMPTY and board[i + 1][j] != EMPTY:
                     moves.append([i, j])
     return moves
@@ -81,6 +82,7 @@ def utility(board):
     """
     Returns 1 if Red has won the game, -1 if Yellow has won, 0 otherwise.
     """
+    # REVAMP NEEDED HERE
     for c in [R, Y]:
         # Check rows and columns
         for i in range(4):
