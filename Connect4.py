@@ -4,6 +4,13 @@ import time
 import math
 pygame.init()
 
+"""
+Run on Python 3.7.9 64 bit
+Requirements:
+    pygame ("pip install pygame" in cmd window)
+    ttf file (can download from sites such as https://www.fontsquirrel.com/fonts/lato)
+"""
+
 # Board Variables
 R = "R"
 Y = "Y"
@@ -24,6 +31,7 @@ def initial_state():
             [EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY],
             [EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY],
             [EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY],]
+    # the first EMPTY in that list is [0][0] and is the top left of the board - meaning bottom right is [5][6]
     return board
 
 
@@ -51,8 +59,12 @@ def actions(board):
     for i in range(6):
         # column itterator
         for j in range(7):
-            if board[i][j] == EMPTY:
-                moves.append([i, j])
+            if i == 5:   
+                if board[i][j] == EMPTY:
+                    moves.append([i, j])
+            else:
+                if board[i][j] == EMPTY and board[i + 1][j] != EMPTY:
+                    moves.append([i, j])
     return moves
 
 def result(board, action):
@@ -291,8 +303,14 @@ while True:
             mouse = pygame.mouse.get_pos()
             for i in range(6):
                 for j in range(7):
-                    if (board[i][j] == EMPTY and tiles[i][j].collidepoint(mouse)):
-                        board = result(board, (i, j))
+                    if (tiles[i][j].collidepoint(mouse)):
+                        # PROBLEM
+                        for k in range(5, -1, -1):
+                            try:
+                                checker = actions(board).index(f"[{k, j}]")
+                                board = result(board, (k, j))
+                            except ValueError:
+                                continue
 
         if game_over:
             againButton = pygame.Rect(width / 3, height - 65, width / 3, 50)
