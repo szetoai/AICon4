@@ -307,11 +307,11 @@ while True:
                         # PROBLEM
                         for k in range(5, -1, -1):
                             try:
-                                checker = actions(board).index(f"[{k, j}]")
+                                checker = actions(board).index([k, j])
                                 board = result(board, (k, j))
+                                break
                             except ValueError:
                                 continue
-
         if game_over:
             againButton = pygame.Rect(width / 3, height - 65, width / 3, 50)
             again = font.render("Play Again", True, black)
