@@ -85,14 +85,6 @@ def utility(board):
     
     # REVAMP NEEDED HERE - make row itterator usable for columns
     for color in [R, Y]:
-        # Check rows and columns
-        for i in range(4):
-            if all(cell == c for cell in board[i]) or all(board[j][i] == c for j in range(4)):
-                return 1 if c == R else -1
-        # Check diagonals
-        if all(board[i][i] == c for i in range(4)) or all(board[i][2 - i] == c for i in range(4)):
-            return 1 if c == Y else -1
-        
         # row itterator
         for i in range(6):
             consec = 0
@@ -105,7 +97,33 @@ def utility(board):
                         break
             if consec == 4:
                 return 1 if color == R else -1
+       
+        # column itterator
+        for x in range(7):
+            consec = 0
+            # chunks of 4
+            for y in range(3):
+                for z in range(y, y + 4):
+                    if board[y][x] == color:
+                        consec += 1
+                    else:
+                        break
+            if consec == 4:
+                return 1 if color == R else -1
         
+        # Check diagonals going down/left
+        for a in range(3):
+            for b in range(4):
+                if all(board[a + c][b + c] == color for c in range(4)):
+                    return 1 if color == R else -1
+        
+        # Check diagonals going up/right
+        for aa in range(3):
+            for bb in range(3, 7):
+                if all(board[aa + cc][bb - cc] == color for cc in range(4)):
+                    return 1 if color == R else -1
+                
+    return 0
 
                 
 
