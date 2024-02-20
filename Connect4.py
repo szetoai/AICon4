@@ -83,7 +83,6 @@ def utility(board):
     Returns 1 if Red has won the game, -1 if Yellow has won, 0 otherwise.
     """
     
-    # REVAMP NEEDED HERE - make row itterator usable for columns
     for color in [R, Y]:
         # row itterator
         for i in range(6):
@@ -123,12 +122,6 @@ def utility(board):
                 if all(board[aa + cc][bb - cc] == color for cc in range(4)):
                     return 1 if color == R else -1
                 
-    return 0
-
-                
-
-
-
     return 0
         
 
@@ -313,11 +306,11 @@ while True:
 
         # Show title
         if game_over:
-            winner = winner(board)
-            if winner is None:
+            victor = winner(board)
+            if victor is None:
                 title = f"Game Over: Tie."
             else:
-                title = f"Game Over: {winner} wins."
+                title = f"Game Over: {victor} wins."
         elif user == Player:
             title = f"Play as {user}"
         else:
