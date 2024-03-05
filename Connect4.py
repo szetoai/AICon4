@@ -144,56 +144,44 @@ def terminal(board):
     else:
         return False
 
-def maxi(board):
-    if terminal(board) == True:
+def maxi(board, depth, depth_limit):
+    if terminal(board) or depth == depth_limit:
         return utility(board)
-    v = -2
-    # for each action possible
-    for i in range(len(actions(board))):
-        v = max(v, mini(result(board, actions(board)[i])))
+    v = -math.inf
+    for action in actions(board):
+        v = max(v, mini(result(board, action), depth + 1, depth_limit))
     return v
-    
-def mini(board):
-    if terminal(board) == True:
+
+def mini(board, depth, depth_limit):
+    if terminal(board) or depth == depth_limit:
         return utility(board)
-    v = 2
-    # for each action possible
-    for j in range(len(actions(board))):
-        v = min(v, maxi(result(board, actions(board)[j])))
+    v = math.inf
+    for action in actions(board):
+        v = min(v, maxi(result(board, action), depth + 1, depth_limit))
     return v
 
 def minimax(board):
-    """
-    Returns the optimal action for the current player on the board.
-    """
-    bestaction = (0, 0)
-    if player(board) == R:
-        bestvalue = float('inf')     
-    else:
-        bestvalue = float('-inf')
-    turn = player(board)
-    if terminal(board) == True:
+    depth_limit = 4  # Example depth limit
+    if terminal(board):
         return None
-    # R wants to maximize win value
-    if turn == R:
-        bestvalue = maxi(board)
-        # for each action possible on this board
-        for i in range(len(actions(board))):
-            # if the best max value equals the best min value for this action
-            if bestvalue == mini(result(board, actions(board)[i])):
-                bestaction = actions(board)[i]
-                break
-    # Y wants to minimize win value
-    else:
-        bestvalue = mini(board)
-        # for each action possible on this board
-        for j in range(len(actions(board))):
-            # if the best original min value equals the best max value for this action
-            if bestvalue == maxi(result(board, actions(board)[j])):
-                bestaction = actions(board)[j]
-                break
 
-    return bestaction
+    best_action = None
+    if player(board) == R:
+        best_value = -math.inf
+        for action in actions(board):
+            value = mini(result(board, action), 1, depth_limit)
+            if value > best_value:
+                best_value = value
+                best_action = action
+    else:
+        best_value = math.inf
+        for action in actions(board):
+            value = maxi(result(board, action), 1, depth_limit)
+            if value < best_value:
+                best_value = value
+                best_action = action
+
+    return best_action
 
 """""
 MAIN GAME LOOP STARTS HERE
