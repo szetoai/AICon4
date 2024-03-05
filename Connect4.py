@@ -84,45 +84,32 @@ def utility(board):
     """
     
     for color in [R, Y]:
-        # row itterator
-        for i in range(6):
-            consec = 0
-            # chunks of 4
-            for j in range(3):
-                for k in range(j, j + 4):
-                    if board[i][j] == color:
-                        consec += 1
-                    else:
-                        break
-            if consec == 4:
-                return 1 if color == R else -1
-       
-        # column itterator
-        for x in range(7):
-            consec = 0
-            # chunks of 4
-            for y in range(3):
-                for z in range(y, y + 4):
-                    if board[y][x] == color:
-                        consec += 1
-                    else:
-                        break
-            if consec == 4:
-                return 1 if color == R else -1
-        
-        # Check diagonals going down/left
-        for a in range(3):
-            for b in range(4):
-                if all(board[a + c][b + c] == color for c in range(4)):
+        # Horizontal Check
+        for row in range(6):
+            for col in range(4):  # Only need to start check up to the 4th column
+                if all(board[row][col + k] == color for k in range(4)):
                     return 1 if color == R else -1
         
-        # Check diagonals going up/right
-        for aa in range(3):
-            for bb in range(3, 7):
-                if all(board[aa + cc][bb - cc] == color for cc in range(4)):
+        # Vertical Check
+        for col in range(7):
+            for row in range(3):  # Only need to start check up to the 3rd row from bottom
+                if all(board[row + k][col] == color for k in range(4)):
                     return 1 if color == R else -1
-                
+        
+        # Positive Diagonal Check (bottom left to top right)
+        for row in range(3, 6):
+            for col in range(4):
+                if all(board[row - k][col + k] == color for k in range(4)):
+                    return 1 if color == R else -1
+        
+        # Negative Diagonal Check (top left to bottom right)
+        for row in range(3):
+            for col in range(4):
+                if all(board[row + k][col + k] == color for k in range(4)):
+                    return 1 if color == R else -1
+                    
     return 0
+
         
 
 def winner(board):
