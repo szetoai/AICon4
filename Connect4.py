@@ -18,10 +18,6 @@ EMPTY = None
 v = 0
 
 # Functions
-class inputerror(Exception):
-    # raises exception if occupied square clicked
-    print("Invalid cell.")
-    pass
 
 def initial_state():
     # initial board state
@@ -75,7 +71,7 @@ def result(board, action):
     if newboard[action[0]][action[1]] == EMPTY:
         newboard[action[0]][action[1]] = turn
     else:
-        raise inputerror
+        pass
     return newboard
 
 def utility(board):
@@ -161,7 +157,7 @@ def mini(board, depth, depth_limit):
     return v
 
 def minimax(board):
-    depth_limit = 4  # Example depth limit
+    depth_limit = 5  # Example depth limit
     if terminal(board):
         return None
 
@@ -244,6 +240,7 @@ while True:
                 user = R
             elif playYellowButton.collidepoint(mouse):
                 time.sleep(0.2)
+                board[5][3] = R
                 user = Y
 
     else:
@@ -312,10 +309,9 @@ while True:
             for i in range(6):
                 for j in range(7):
                     if (tiles[i][j].collidepoint(mouse)):
-                        # PROBLEM
                         for k in range(5, -1, -1):
                             try:
-                                checker = actions(board).index([k, j])
+                                checker = actions(board).index([k, j])  
                                 board = result(board, (k, j))
                                 break
                             except ValueError:

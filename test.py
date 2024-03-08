@@ -1,6 +1,10 @@
-temp = [[0, 0], [1, 1], [2,2]]
+def fun():
+    x = 5
+
+
 try:
-    x = temp.index([0, 0])
-except ValueError:
-    x = 2
-print(f"{x}")
+    if "cat" == fun():
+        print("oops")
+except ValueError as err:
+    print(err.args)
+    print("what")
