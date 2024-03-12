@@ -212,10 +212,18 @@ while True:
     if user is None:
 
         # Draw title
-        title = font.render("Connect 4 VS AI", True, white)
+        title = font.render("Connect 4", True, red)
         titleRect = title.get_rect()
         titleRect.center = ((width / 2), 50)
+        subtitle = font.render("vs", True, white)
+        subtitleRect = subtitle.get_rect()
+        subtitleRect.center = ((width / 2), 100)
+        subtitle1 = font.render("A.I.", True, yellow)
+        subtitleRect1 = subtitle.get_rect()
+        subtitleRect1.center = ((width / 2) - 10, 160)
         window.blit(title, titleRect)
+        window.blit(subtitle, subtitleRect)
+        window.blit(subtitle1, subtitleRect1)
 
         # Draw buttons
         playRedButton = pygame.Rect((width / 8), (height / 2), 350, 50)
