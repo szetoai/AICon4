@@ -226,18 +226,18 @@ while True:
         window.blit(subtitle1, subtitleRect1)
 
         # Draw buttons
-        playRedButton = pygame.Rect((width / 8), (height / 2), 350, 50)
-        playRed = font.render("Play as Red", True, black)
+        playRedButton = pygame.Rect((width / 3.1), (height / 2.75), 350, 50)
+        playRed = font.render("Play as Red", True, red)
         playRedRect = playRed.get_rect()
         playRedRect.center = playRedButton.center
-        pygame.draw.rect(window, white, playRedButton)
+        pygame.draw.rect(window, blue, playRedButton)
         window.blit(playRed, playRedRect)
 
-        playYellowButton = pygame.Rect(4 * (width / 8), (height / 2), 400, 50)
-        playYellow = font.render("Play as Yellow", True, black)
+        playYellowButton = pygame.Rect((width / 3.3), (height / 2), 400, 50)
+        playYellow = font.render("Play as Yellow", True, yellow)
         playYellowRect = playYellow.get_rect()
         playYellowRect.center = playYellowButton.center
-        pygame.draw.rect(window, white, playYellowButton)
+        pygame.draw.rect(window, blue, playYellowButton)
         window.blit(playYellow, playYellowRect)
 
         # Check if button is clicked
