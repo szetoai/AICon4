@@ -157,7 +157,8 @@ def mini(board, depth, depth_limit):
     return v
 
 def minimax(board):
-    depth_limit = 5  # Example depth limit
+    empty_cells = sum(row.count(EMPTY) for row in board)
+    depth_limit = min(empty_cells, 5)  # Adjust the maximum depth based on the number of empty cells
     if terminal(board):
         return None
 
