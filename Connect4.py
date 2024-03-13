@@ -9,6 +9,9 @@ Run on Python 3.7.9 64 bit
 Requirements:
     pygame ("pip install pygame" in cmd window)
     ttf file (can download from sites such as https://www.fontsquirrel.com/fonts/lato)
+
+Credits:
+Functions adapted from CS50's Introduction to Artificial Intelligence with Python Week 0 - Tic-Tac-Toe Project
 """
 
 # Board Variables
@@ -158,7 +161,7 @@ def mini(board, depth, depth_limit):
 
 def minimax(board):
     empty_cells = sum(row.count(EMPTY) for row in board)
-    depth_limit = min(empty_cells, 5)  # Adjust the maximum depth based on the number of empty cells
+    depth_limit = min(empty_cells, 5)
     if terminal(board):
         return None
 
