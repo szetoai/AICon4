@@ -291,7 +291,16 @@ while True:
             if victor is None:
                 title = f"Game Over: Tie."
             else:
-                title = f"Game Over: {victor} wins."
+                title = f"Game Over:   wins."
+                letter1 = f"{victor}"
+                if victor == R:
+                    ROY = red
+                else:
+                    ROY = yellow
+                letter1 = font.render(letter1, True, ROY)
+                letter1Rect = letter1.get_rect()
+                letter1Rect.center = ((width / 1.715), 30)
+                window.blit(letter1, letter1Rect)
         elif user == Player:
             title = f"Play as"
             letter = f"{user}"
