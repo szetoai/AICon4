@@ -226,7 +226,7 @@ while True:
         window.blit(subtitle1, subtitleRect1)
 
         # Draw buttons
-        playRedButton = pygame.Rect((width / 3.1), (height / 2.75), 350, 50)
+        playRedButton = pygame.Rect((width / 3.08), (height / 2.75), 350, 50)
         playRed = font.render("Play as Red", True, red)
         playRedRect = playRed.get_rect()
         playRedRect.center = playRedButton.center
@@ -245,10 +245,10 @@ while True:
         if click == 1:
             mouse = pygame.mouse.get_pos()
             if playRedButton.collidepoint(mouse):
-                time.sleep(0.2)
+                time.sleep(0.5)
                 user = R
             elif playYellowButton.collidepoint(mouse):
-                time.sleep(0.2)
+                time.sleep(0.5)
                 board[5][3] = R
                 user = Y
 
@@ -293,7 +293,16 @@ while True:
             else:
                 title = f"Game Over: {victor} wins."
         elif user == Player:
-            title = f"Play as {user}"
+            title = f"Play as"
+            letter = f"{user}"
+            if user == R:
+                ROY = red
+            else:
+                ROY = yellow
+            letter = font.render(letter, True, ROY)
+            letterRect = letter.get_rect()
+            letterRect.center = ((width / 1.59), 30)
+            window.blit(letter, letterRect)
         else:
             title = f"Computer thinking..."
         title = font.render(title, True, white)
