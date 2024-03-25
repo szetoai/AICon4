@@ -23,14 +23,12 @@ v = 0
 # Functions
 
 def initial_state():
-    # initial board state
     board = [[EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY],
             [EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY],
             [EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY],
             [EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY],
             [EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY],
             [EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY],]
-    # the first EMPTY in that list is [0][0] and is the top left of the board - meaning bottom right is [5][6]
     return board
 
 
@@ -52,23 +50,18 @@ def player(board):
         return Y
     
 def actions(board):
-    # in: board state, out: all possible actions
     moves = []
-    # row itterator
     for i in range(6):
-        # column itterator
         for j in range(7):
             if i == 5:   
                 if board[i][j] == EMPTY:
                     moves.append([i, j])
             else:
-                # if this space is empty and space below isn't
                 if board[i][j] == EMPTY and board[i + 1][j] != EMPTY:
                     moves.append([i, j])
     return moves
 
 def result(board, action):
-    # in: board state + action, out: resulting board
     turn = player(board)
     newboard = [row[:] for row in board]
     if newboard[action[0]][action[1]] == EMPTY:
@@ -123,18 +116,13 @@ def winner(board):
     return None
 
 def terminal(board):
-    """
-    Returns True if game is over, False otherwise.
-    """
     taken = 0
     if utility(board) != 0:
         return True
     for i in range(6):
         try:
-        # if there's an available spot in this row
             if board[i].index(EMPTY) > -1:
                 break
-        # if there isnt
         except ValueError:
             taken += 1
             continue
